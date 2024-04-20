@@ -2,6 +2,7 @@
 """ Console Module """
 import cmd
 import sys
+from datetime import datetime
 from models.base_model import BaseModel
 from models.__init__ import storage
 from models.user import User
@@ -148,6 +149,10 @@ class HBNBCommand(cmd.Cmd):
                     except ValueError:
                         continue
                 params[key] = value
+
+        # Set updated_at attribute to current datetime
+        params['updated_at'] = datetime.utcnow()
+
         # Create object with given parameters
         new_instance = HBNBCommand.classes[class_name](**params)
         storage.save()
